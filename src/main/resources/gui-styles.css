@@ -17,3 +17,12 @@ AnchorPane {
     -fx-font-size: 1.0em;
     -fx-font-family: "Helvetica Neue";
 }
+
+Button {
+    -fx-text-fill: #a10022;
+    -fx-background-radius: 3px;
+    -fx-font-family: "Helvetica";
+}
+Button:hover {
+    -fx-text-fill: #000000;
+}
