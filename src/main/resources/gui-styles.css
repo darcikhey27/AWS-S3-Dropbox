@@ -1,0 +1,19 @@
+AnchorPane {
+    -fx-background-color: rgb(255, 255, 255);
+    /*-fx-background-image: url("rabbit-150x150.png"); */
+}
+#statusLabel {
+    -fx-background-color: #a10022;
+    -fx-text-fill: rgb(255,255,255);
+    -fx-font-size: 1.3em;
+    -fx-font-family: "Helvetica";
+}
+#header {
+    -fx-text-fill: #000000;
+    -fx-font-size: 1.8em;
+    -fx-font-family: "Helvetica Neue";
+}
+#choiceBox {
+    -fx-font-size: 1.0em;
+    -fx-font-family: "Helvetica Neue";
+}

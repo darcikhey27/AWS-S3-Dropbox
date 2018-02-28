@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDropped="#fileDropped" onDragOver="#fileDragOver" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <ChoiceBox fx:id="choiceBox" layoutX="48.0" layoutY="64.0" prefHeight="27.0" prefWidth="530.0" />
+      <Label fx:id="header" alignment="CENTER" layoutX="150.0" layoutY="37.0" prefHeight="17.0" prefWidth="299.0" text="CHOOSE YOUR BUCKET" textAlignment="CENTER" />
+      <Label fx:id="statusLabel" alignment="CENTER" prefHeight="27.0" prefWidth="600.0" text="status:" textAlignment="CENTER" />
+      <ListView fx:id="listView" layoutX="48.0" layoutY="89.0" prefHeight="259.0" prefWidth="530.0" />
+      <Button fx:id="downloadButton" layoutX="319.0" layoutY="359.0" mnemonicParsing="false" onAction="#downloadFile" prefHeight="27.0" prefWidth="119.0" text="DOWNLOAD" />
+      <Button layoutX="209.0" layoutY="359.0" mnemonicParsing="false" text="NEW BUCKET" />
+      <ImageView fitHeight="27.0" fitWidth="36.0" layoutX="14.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@bucketwithobjects.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
