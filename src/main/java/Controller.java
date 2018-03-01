@@ -19,7 +19,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.*;
 import java.util.List;
 
-
+/* Controller class that uses JavaFX and S3Connector */
 public class Controller {
     private S3Connector s3Connector;
     private String currentBucket;
@@ -33,26 +33,10 @@ public class Controller {
     private ChoiceBox<String> choiceBox;
     @FXML
     private ListView<String> listView;
-
     @FXML
     private Button downloadButton;
 
-
-    @FXML
-    public void downloadFile() {
-        ObservableList selectedIndices = listView.getSelectionModel().getSelectedIndices();
-        String filename;
-        for(Object obj : selectedIndices){
-            System.out.println(this.listView.getItems().get((Integer)obj));
-            filename = this.listView.getItems().get((int)obj);
-
-            // download this file from S3 bucket
-            this.s3Connector.downloadFile(filename);
-            this.statusLabel.setText("File "+ filename+ " has been downloaded");
-        }
-    }
-
-    // initialize S3 add event listiners to ChoiceBox
+    // initialize S3 add event listener to ChoiceBox
     @FXML
     public void initialize() {
         this.s3Connector = new S3Connector();
@@ -72,6 +56,22 @@ public class Controller {
                         getBucketName(newValue));
     }
 
+    // Download a file from S3 Bucket
+    @FXML
+    public void downloadFile() {
+        ObservableList selectedIndices = listView.getSelectionModel().getSelectedIndices();
+        String filename;
+        for(Object obj : selectedIndices){
+            System.out.println(this.listView.getItems().get((Integer)obj));
+            filename = this.listView.getItems().get((int)obj);
+
+            // download this file from S3 bucket
+            this.s3Connector.downloadFile(filename);
+            this.statusLabel.setText("File "+ filename+ " has been downloaded");
+        }
+    }
+
+    // check to make sure that the user is dragging a file object
     @FXML
     public void fileDragOver(DragEvent de) {
         //System.out.println("in imageDragOver");
@@ -82,6 +82,7 @@ public class Controller {
         }
     }
 
+    // when the file is dropped, create a file and upload to S3
     @FXML
     public void fileDropped(DragEvent de) throws IOException {
        // System.out.println("in image drop");
@@ -116,6 +117,7 @@ public class Controller {
         //System.out.println(bucketName);
     }
 
+    // show all files in this bucket
     private void listBucketContents(String bucketName) {
         this.listView.getItems().clear();
         System.out.println("Listing objects for "+ bucketName);
