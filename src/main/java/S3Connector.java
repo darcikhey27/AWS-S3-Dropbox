@@ -30,7 +30,7 @@ public class S3Connector {
         }
         System.out.println();
     }
-    
+
     public void downloadFile(String keyName) {
         try {
             S3Object o = this.s3.getObject(currentBucket, keyName);
