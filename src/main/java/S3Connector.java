@@ -1,3 +1,6 @@
+/* this is the utility class used to connect to S3 and do
+ * operations like upload and download files from buckets
+ */
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
@@ -14,8 +17,6 @@ import java.util.List;
 
 public class S3Connector {
     private AmazonS3 s3;
-
-
 
     private String currentBucket;
 
