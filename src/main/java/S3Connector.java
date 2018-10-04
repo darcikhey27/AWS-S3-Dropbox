@@ -17,16 +17,14 @@ import java.util.List;
 
 public class S3Connector {
     private AmazonS3 s3;
-
     private String currentBucket;
 
     public S3Connector() {
-        s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_WEST_2).build(); //
+        this.s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_WEST_2).build();
     }
 
     public void listBuckets() {
-        for (Bucket bucket : s3.listBuckets()) {
-
+        for (Bucket bucket : this.s3.listBuckets()) {
             System.out.println(" - " + bucket.getName());
         }
         System.out.println();
@@ -34,16 +32,17 @@ public class S3Connector {
 
     public void downloadFile(String keyName) {
         try {
-            S3Object o = this.s3.getObject(currentBucket, keyName);
-            S3ObjectInputStream s3is = o.getObjectContent();
+            S3Object obj = this.s3.getObject(currentBucket, keyName);
+            S3ObjectInputStream s3is = obj.getObjectContent();
             FileOutputStream fos = new FileOutputStream(new File(keyName));
+
             byte[] read_buf = new byte[1024];
-            int read_len = 0;
-            while ((read_len = s3is.read(read_buf)) > 0) {
+            int read_len = s3is.read(read_buf);
+
+            while (read_len > 0) {
                 fos.write(read_buf, 0, read_len);
+                read_len = s3is.read(read_buf);
             }
-            s3is.close();
-            fos.close();
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
@@ -53,6 +52,9 @@ public class S3Connector {
         } catch (IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
+        } finally {
+            s3is.close();
+            fos.close();
         }
     }
 
@@ -70,17 +72,18 @@ public class S3Connector {
     }
 
     public AmazonS3 getS3() {
-        return s3;
+        return this.s3;
     }
+
     public void setS3(AmazonS3 s3) {
         this.s3 = s3;
     }
+
     public String getCurrentBucket() {
-        return currentBucket;
+        return this.currentBucket;
     }
+
     public void setCurrentBucket(String currentBucket) {
         this.currentBucket = currentBucket;
     }
-
-
 }

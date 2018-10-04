@@ -47,13 +47,12 @@ public class Controller {
             System.out.println(bucket.getName());
             this.choiceBox.getItems().add(bucket.getName());
         }
-        //this.choiceBox.setValue(firstBucket);
 
         // add event listener via Lambda
         this.choiceBox.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) ->
-                        getBucketName(newValue));
+                    getBucketName(newValue));
     }
 
     // Download a file from S3 Bucket
@@ -61,7 +60,7 @@ public class Controller {
     public void downloadFile() {
         ObservableList selectedIndices = listView.getSelectionModel().getSelectedIndices();
         String filename;
-        for(Object obj : selectedIndices){
+        for (Object obj : selectedIndices) {
             System.out.println(this.listView.getItems().get((Integer)obj));
             filename = this.listView.getItems().get((int)obj);
 
@@ -74,10 +73,8 @@ public class Controller {
     // check to make sure that the user is dragging a file object
     @FXML
     public void fileDragOver(DragEvent de) {
-        //System.out.println("in imageDragOver");
         Dragboard board = de.getDragboard();
         if (board.hasFiles()) {
-            //System.out.println("has file");
             de.acceptTransferModes(TransferMode.ANY);
         }
     }
@@ -85,17 +82,16 @@ public class Controller {
     // when the file is dropped, create a file and upload to S3
     @FXML
     public void fileDropped(DragEvent de) throws IOException {
-       // System.out.println("in image drop");
         try {
             Dragboard board = de.getDragboard();
             List<File> phil = board.getFiles();
-            FileInputStream fis;
-            fis = new FileInputStream(phil.get(0));
+            FileInputStream fis = new FileInputStream(phil.get(0));
             String filename = phil.get(0).getName();
             byte[] fileBuffer = new byte[fis.available()];
+            File targetFile = new File(filename);
+
             fis.read(fileBuffer);
 
-            File targetFile = new File(filename);
             OutputStream outputStream = new FileOutputStream(targetFile);
             outputStream.write(fileBuffer);
 
@@ -114,7 +110,6 @@ public class Controller {
 
     private void getBucketName(String bucketName) {
         listBucketContents(bucketName);
-        //System.out.println(bucketName);
     }
 
     // show all files in this bucket
@@ -124,7 +119,7 @@ public class Controller {
         ListObjectsV2Result result = this.s3Connector.getS3().listObjectsV2(bucketName);
         List<S3ObjectSummary> objects = result.getObjectSummaries();
         for (S3ObjectSummary os: objects) {
-            if(!os.getKey().equals("MyObjectKey")) {
+            if (!os.getKey().equals("MyObjectKey")) {
                 this.statusLabel.setText("Listing Contents");
                 this.listView.getItems().add(os.getKey());
                 this.s3Connector.setCurrentBucket(bucketName);
