@@ -3,16 +3,13 @@ import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
-//import javax.swing.event.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.event.*;
 import java.io.*;
 
 public class DragDropFiles extends JFrame {
-
     private DefaultListModel model = new DefaultListModel();
     private int count = 0;
     private JTree tree;
@@ -200,7 +197,7 @@ public class DragDropFiles extends JFrame {
         nparent.add(new DefaultMutableTreeNode("kieran"));
         nparent.add(new DefaultMutableTreeNode("william"));
         nparent.add(new DefaultMutableTreeNode("jose"));
-        
+
         parent.add(nparent);
         nparent = new DefaultMutableTreeNode("women");
         nparent.add(new DefaultMutableTreeNode("jennifer"));
@@ -212,8 +209,6 @@ public class DragDropFiles extends JFrame {
         return new DefaultTreeModel(root);
     }
 
-
-
     private static void increaseFont(String type) {
         Font font = UIManager.getFont(type);
         font = font.deriveFont(font.getSize() + 4f);
@@ -224,34 +219,33 @@ public class DragDropFiles extends JFrame {
         //Create and set up the window.
         DragDropFiles test = new DragDropFiles();
         test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         //Display the window.
         test.pack();
         test.setVisible(true);
     }
-    
-    
+
     private void copyFile(File source, File dest)
-    		throws IOException {
-	    	InputStream input = null;
-	    	OutputStream output = null;
-	    	try {
-	    		input = new FileInputStream(source);
-	    		output = new FileOutputStream(dest);
-	    		byte[] buf = new byte[1024];
-	    		int bytesRead;
-	    		while ((bytesRead = input.read(buf)) > 0) {
-	    			output.write(buf, 0, bytesRead);
-	    		}
-	    	} finally {
-	    		input.close();
-	    		output.close();
-	    	}
+        throws IOException {
+        InputStream input = null;
+        OutputStream output = null;
+        try {
+            input = new FileInputStream(source);
+            output = new FileOutputStream(dest);
+            byte[] buf = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = input.read(buf)) > 0) {
+                output.write(buf, 0, bytesRead);
+            }
+        } finally {
+            input.close();
+            output.close();
+        }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
-            public void run() {                
+            public void run() {
                 try {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
                     increaseFont("Tree.font");
@@ -261,7 +255,7 @@ public class DragDropFiles extends JFrame {
                 } catch (Exception e) {}
 
                 //Turn off metal's use of bold fonts
-	        UIManager.put("swing.boldMetal", Boolean.FALSE);
+                UIManager.put("swing.boldMetal", Boolean.FALSE);
                 createAndShowGUI();
             }
         });
